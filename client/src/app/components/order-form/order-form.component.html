@@ -1,0 +1,83 @@
+<h1>ORDER UP</h1>
+<span
+  ><strong>NOTE : </strong> Double-click on any input will display your personal
+  details you entered when you signed up.
+</span>
+
+<div *ngIf="receipt" class="receipt_box">
+  <div class="receipt_content">
+    <img
+      src="assets/imgs/close.png"
+      alt="close btn"
+      class="closeBTN"
+      (click)="goPanel()"
+    />
+    <h3>Your purchase was successful!</h3>
+    <h4>
+      To download the receipt, click
+      <span class="receipt_link" (click)="show_receipt()">here</span>
+    </h4>
+  </div>
+</div>
+
+<form [formGroup]="form" class="form_box Oform">
+  <mat-form-field appearance="fill">
+    <input
+      matInput
+      formControlName="city_shipping"
+      (dblclick)="onDBLclick($event)"
+      id="city"
+    />
+  </mat-form-field>
+
+  <span *ngIf="cityMessage" class="errorMessage"
+    >if you want to change the city please select other below ⬇️
+  </span>
+
+  <mat-form-field appearance="fill">
+    <mat-select formControlName="city_shipping" (click)="selectOther()">
+      <mat-option>- -</mat-option>
+      <mat-option *ngFor="let city of cities" value="{{ city }}">{{
+        city
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Street*: </mat-label>
+    <input
+      matInput
+      formControlName="street_shipping"
+      (dblclick)="onDBLclick($event)"
+      id="street"
+    />
+  </mat-form-field>
+
+  <span *ngIf="errorBook" class="errorMessage"
+    >We're sorry , this date is fully booked, try another one.</span
+  >
+  <mat-form-field>
+    <mat-label>Choose a date of shipping</mat-label>
+    <input
+      matInput
+      [matDatepicker]="myPicker"
+      [min]="today"
+      formControlName="date_order_toShipping"
+      (dateInput)="check('input', $event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+    <mat-datepicker #myPicker color="primary"></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter last 4 numbers in Credit Card *:</mat-label>
+    <input matInput #input maxlength="4" formControlName="creditCard" />
+    <mat-hint align="end">{{ input.value?.length || 0 }}/4</mat-hint>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" (click)="order()">
+    Order
+  </button>
+</form>
+
+{{ form.value | json }}

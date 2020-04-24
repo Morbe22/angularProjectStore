@@ -1,0 +1,81 @@
+.panel_box {
+  margin: 2.5%;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.panel_box > * {
+  /* border: 25px solid rgba(55, 35, 35, 0.85); */
+  border: 22px solid transparent;
+  border-image: url(https://i.pinimg.com/originals/fd/05/f4/fd05f4f982a70dec7d61caecc0fd8848.jpg)
+    30 stretch;
+  width: 33%;
+  margin: 5px;
+  padding: 10px;
+  position: inherit;
+  font-variant-caps: small-caps;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.panel-a > button {
+  display: flex;
+  font-variant-caps: all-small-caps;
+  font-size: larger;
+  font-weight: lighter;
+  align-items: center;
+}
+.userLog_box {
+}
+
+.panel_b > div {
+  padding: 5px;
+}
+
+.panel_b > img {
+  width: 100%;
+}
+
+.panel_c {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.amountOf {
+  text-align: center;
+  margin: 2.5px;
+  padding: 5px;
+}
+
+.notification {
+  border: 5px double #fff;
+  padding: 5px;
+  background-color: rgb(130, 110, 145);
+  color: rgb(251, 255, 0);
+  border-radius: 5px;
+}
+
+.notification > h2 {
+  text-align: center;
+  font-variant-caps: all-small-caps;
+  color: #000;
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+.notification > h3 {
+  font-weight: bolder;
+  font-family: monospace;
+  padding: 5px;
+}
+
+.notification > div > h3 {
+  font-weight: bolder;
+  font-family: monospace;
+  padding: 5px;
+  margin: 0;
+}

@@ -1,0 +1,40 @@
+<div class="before_addForm_box">
+  <div>
+    <img src="assets/imgs/close.png" class="closeBtn" (click)="closeWin()" />
+    <form
+      [formGroup]="form"
+      class="productForm"
+      enctype="multipart/form-data"
+      method="POST"
+      id="productForm"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>product name:</mat-label>
+        <input matInput name="p_name" formControlName="p_name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Catagory:</mat-label>
+        <mat-select name="catagory_id" formControlName="catagory_id">
+          <mat-option *ngFor="let c of catagories" value="{{ c.id }}">
+            {{ c.theme }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>price:</mat-label>
+        <input matInput name="price" formControlName="price" type="number" />
+      </mat-form-field>
+      <mat-label>picture:</mat-label>
+
+      <input type="file" (change)="onFileChanged($event)" />
+      <button type="submit" (click)="onUpload()">Upload!</button>
+
+      <button mat-raised-button color="primary" (click)="addProd()">
+        Add Product!
+      </button>
+
+      {{ form.value | json }}
+    </form>
+  </div>
+</div>

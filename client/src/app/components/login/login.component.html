@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="login()" class="form_box">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter email :</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+  <div class="errorMessage">
+    <p
+      *ngIf="
+        form.controls.email.errors?.required &&
+        (form.controls.email.touched || form.controls.email.dirty) &&
+        form.controls.email.invalid
+      "
+    >
+      please provide a valid email address. <br />
+      Example : "username@gmail.com"
+    </p>
+
+    <!-- <span *ngIf="ifUser"> user not exists !</span> -->
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter password :</mat-label>
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" type="submit">
+    Login
+  </button>
+</form>
+{{ form.value | json }}

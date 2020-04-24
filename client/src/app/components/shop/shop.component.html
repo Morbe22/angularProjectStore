@@ -1,0 +1,230 @@
+<div class="fbox">
+  <button
+    type="button"
+    mat-flat-button
+    color="primary"
+    (click)="toggle()"
+    class="toggleBtn"
+    color="primary"
+  >
+    <span>My cart</span>
+    <img
+      src="assets/imgs/shopping-cart.svg"
+      alt="shopping cart"
+      class="cartImg"
+    />
+  </button>
+  <div class="search_box">
+    <mat-form-field appearance="fill">
+      <mat-label class="labelS">search product </mat-label>
+      <input matInput id="search" />
+    </mat-form-field>
+
+    <img
+      src="assets/imgs/search.svg"
+      alt="search icon"
+      class="Simg"
+      (click)="search()"
+    />
+  </div>
+</div>
+
+<div class="wrapper">
+  <aside *ngIf="isOpen">
+    <div class="clearImg" (click)="delAllP()">
+      <span>clear All</span>
+      <img src="assets/imgs/clear.png" alt="clear icon" />
+    </div>
+    <div *ngIf="edit">
+      edit:
+      <form [formGroup]="Editform" class="editForm">
+        <mat-form-field appearance="fill">
+          <mat-label>product name :</mat-label>
+          <input matInput formControlName="p_name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-option
+            >the selected catagory number:
+            {{ chosenProd.catagory_id }}</mat-option
+          >
+          <mat-select formControlName="catagory_id">
+            <mat-option *ngFor="let c of catagories" value="{{ c.id }}">{{
+              c.theme
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Price: $</mat-label>
+          <input matInput formControlName="price" type="number" />
+        </mat-form-field>
+
+        <img src="http://localhost:1035/{{ chosenProd.picture }}" />
+        <input type="file" (change)="onFileChanged($event)" />
+        <button
+          type="submit"
+          color="primary"
+          mat-raised-button
+          (click)="onUpload()"
+        >
+          Upload new Pic!
+        </button>
+
+        <button color="primary" mat-raised-button (click)="editProd()">
+          Save
+        </button>
+
+        {{ Editform.value | json }}
+      </form>
+    </div>
+
+    <div class="items_box">
+      <div
+        *ngFor="let item of cartItems"
+        class="items"
+        id="{{ item.product_id }}"
+      >
+        <img
+          src="assets/imgs/close.png"
+          alt="closeBTN"
+          class="closeBtn"
+          (click)="delOneP(item)"
+        />
+        <h3>"{{ item.p_name }}"</h3>
+        <p>amount : {{ item.amount }}</p>
+        <p>total price of product : {{ item.total_price }} $</p>
+        <img src="http://localhost:1035/{{ item.picture }}" class="itemImg" />
+      </div>
+    </div>
+
+    <div class="orderbtn">
+      <h2>TOTAL : {{ final_Price }} $</h2>
+      <button mat-stroked-button (click)="order()">Order</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="filter">
+      <button mat-flat-button (click)="reset()" class="resetBtn">
+        <img src="assets/imgs/reset.png" class="resetImg" alt="reset" />
+      </button>
+      <div (click)="filter($event)">
+        <div *ngFor="let c of catArr1">
+          <mat-checkbox
+            class="categories"
+            color="primary"
+            labelPosition="before"
+            value="{{ c.id }}"
+            name="categories"
+            >{{ c.theme }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div (click)="filter($event)">
+        <div *ngFor="let c of catArr2">
+          <mat-checkbox
+            class="categories"
+            color="primary"
+            labelPosition="before"
+            value="{{ c.id }}"
+            name="categories"
+            >{{ c.theme }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div (click)="filter($event)">
+        <div *ngFor="let c of catArr3">
+          <mat-checkbox
+            color="primary"
+            class="categories"
+            labelPosition="before"
+            value="{{ c.id }}"
+            name="categories"
+            >{{ c.theme }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod_box">
+      <mat-card *ngFor="let p of products" (click)="clickProd(p)">
+        <mat-card-header>
+          <mat-card-title>{{ p.p_name }}</mat-card-title>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="http://localhost:1035/{{ p.picture }}"
+          class="prod_img"
+        />
+        <mat-card-content>
+          <p>price: {{ p.price }} $</p>
+        </mat-card-content>
+        <mat-card-actions class="amountBtns">
+          <div>
+            <input type="number" value="1" id="{{ p.id }}" />
+          </div>
+        </mat-card-actions>
+        <button (click)="add($event, p)" color="primary" mat-button>
+          ADD TO CART
+        </button>
+        <div *ngIf="p.id == [productId]">
+          <span *ngIf="errorMessageAdd" class="errorMessageAdd"
+            >the product already exist in the cart, if you want to add more
+            please delete the current product and add again.
+          </span>
+        </div>
+      </mat-card>
+    </div>
+    <button class="addProductBtn" (click)="AddPopUp()">
+      +
+    </button>
+  </main>
+
+  <div class="popUpOrder" *ngIf="orderPopUp">
+    <div>
+      <div>
+        <div class="search_box_order">
+          <mat-form-field appearance="fill">
+            <mat-label class="labelS">search product </mat-label>
+            <input matInput id="search_order" (keyup)="onkeyDown($event)" />
+          </mat-form-field>
+
+          <img
+            src="assets/imgs/search.svg"
+            alt="search icon"
+            class="Simg_order"
+            (click)="search_from_order()"
+          />
+          <img
+            src="assets/imgs/reset.png"
+            class="Simg_order"
+            alt="reset"
+            (click)="reset_order()"
+          />
+        </div>
+        <div class="orderCart">
+          <span>my cart</span>
+          <button mat-button (click)="closeOrder()">back to shop</button>
+        </div>
+
+        <div class="wrapCartItems">
+          <div *ngFor="let item of cartItemsOrder" class="orderItems">
+            <p id="order{{ item.p_id }}">"{{ item.p_name }}"</p>
+            <p>amount : {{ item.amount }}</p>
+            <p>total price of product : {{ item.total_price }} $</p>
+            <img src="http://localhost:1035/{{ item.picture }}" />
+          </div>
+        </div>
+
+        <div>
+          <h2 class="finalPrice">TOTAL : {{ final_Price }} $</h2>
+        </div>
+      </div>
+
+      <div>
+        <order-form></order-form>
+      </div>
+    </div>
+  </div>
+</div>

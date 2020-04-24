@@ -1,0 +1,70 @@
+<div class="panel_box">
+  <div class="panel-a">
+    <button mat-stroked-button [disabled]="token" (click)="Toshop()">
+      <span *ngIf="ifCartOpen">Resume</span>
+      <span *ngIf="noCart">start</span>
+      <span *ngIf="isAdmin">manage the cart</span>
+      Shopping
+    </button>
+
+    <div *ngIf="log_div" class="userLog_box">
+      <login *ngIf="!isOpen" (tokenStatus)="tokenCheck($event)"></login>
+
+      <div *ngIf="new_user">
+        <span>if you are new at this site, please - </span>
+
+        <button mat-fab color="primary" (click)="signUp()">
+          Sign Up
+        </button>
+      </div>
+
+      <register *ngIf="isOpen" (tokenStatus)="tokenCheck($event)"></register>
+    </div>
+  </div>
+
+  <div class="panel_b">
+    <img src="assets/imgs/me.jpg" alt="picture of mine" />
+    <div>
+      <p>welcome to my site !</p>
+      <p>
+        Like every artist's aspiration, there is a desire for his art to be
+        recognized and appreciated. There are all kinds of ways to display the
+        artwork, and I chose to display it through a website.
+      </p>
+      <p>Wishing you a successful purchase.</p>
+      <p>Have fun</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="panel_c">
+      <div class="amountOf">
+        <p>
+          Amount of products available on the site :
+          <span>{{ amountOfP }}</span>
+        </p>
+        <p>
+          Amount of orders made on site : <span>{{ amountOfO }}</span>
+        </p>
+      </div>
+
+      <div class="notification">
+        <h2>Hi {{ name }} !</h2>
+
+        <h3 *ngIf="newUser">welcome to your first purchase !</h3>
+
+        <div *ngIf="ifCartOpen">
+          <h3>You still have an open cart, Continue shop and Order Up!</h3>
+          <h3>
+            The last time you've used your cart: {{ date | date: "short" }}.
+          </h3>
+          <h3>Your cart now stands for {{ cartPrice }} $ .</h3>
+        </div>
+
+        <div *ngIf="cartDone">
+          <h3>Your last purchase was on {{ date | date: "short" }} .</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

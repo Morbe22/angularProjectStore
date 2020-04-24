@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+/* 
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+.form_box {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+  width: 2em !important;
+}
+
+.mat-card-title {
+  font-weight: lighter;
+  padding-bottom: 2.5px;
+  border-bottom: 5px solid rgb(130, 110, 145);
+}
+
+.mat-card {
+  font-variant-caps: small-caps;
+  font-size: larger;
+}
+
+.errorMessageAdd {
+  background-color: rgba(0, 0, 0, 0.438);
+  padding: 5px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: larger;
+  font-weight: 400;
+  border-radius: 5px;
+}
+
+.errorMessage {
+  margin-bottom: 15px;
+  color: red;
+  font-weight: bolder;
+  font-size: 12px;
+}
+
+.mat-toolbar-single-row {
+  height: fit-content !important;
+}
+
+.mat-button-wrapper {
+  display: flex;
+}
+
+.mat-button-wrapper > span {
+  padding-right: 2.5px;
+}
+
+.Oform {
+  margin-top: 100px !important;
+}

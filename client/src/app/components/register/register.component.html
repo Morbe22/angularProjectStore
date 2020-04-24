@@ -1,0 +1,117 @@
+<form [formGroup]="form" class="form_box">
+  <mat-form-field hintLabel="Max 9 characters" appearance="fill">
+    <mat-label>Enter your ID *:</mat-label>
+    <input
+      matInput
+      #input
+      maxlength="9"
+      formControlName="ID"
+      pattern="^[0-9]*$"
+    />
+    <mat-hint align="end">{{ input.value?.length || 0 }}/9</mat-hint>
+  </mat-form-field>
+
+  <div class="errorMessage">
+    <span *ngIf="form.controls.ID.errors?.pattern"> only numbers!</span>
+
+    <span
+      *ngIf="
+        (form.controls.email.touched || form.controls.email.dirty) &&
+        form.controls.ID.errors?.minlength
+      "
+    >
+      ID must be at least 8 characters long</span
+    >
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your Email *:</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <div class="errorMessage">
+    <span
+      *ngIf="
+        form.controls.email.errors?.required &&
+        (form.controls.email.touched || form.controls.email.dirty) &&
+        form.controls.email.invalid
+      "
+    >
+      please provide a valid email address. <br />
+      Example : "username@gmail.com"
+    </span>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password * :</mat-label>
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+      pattern=".{5,}"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Confirm Password:</mat-label>
+    <input matInput formControlName="confirmPassword" type="password" />
+  </mat-form-field>
+
+  <div class="errorMessage">
+    <span *ngIf="form.controls.password.errors?.pattern">
+      password must be at least 5 characters or more</span
+    >
+    <span *ngIf="passwordErrorMessage">passwords not match</span>
+    <span *ngIf="idErrorMessage"> ID/Email already exists !</span>
+  </div>
+
+  <button class="next" (click)="check()" *ngIf="showBtn">
+    <img src="\assets\imgs\next.svg" />
+  </button>
+
+  <div *ngIf="isValid">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name*: </mat-label>
+      <input matInput formControlName="f_name" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name*: </mat-label>
+      <input matInput formControlName="l_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select City*: </mat-label>
+      <mat-select formControlName="city">
+        <mat-option>- -</mat-option>
+        <mat-option *ngFor="let city of cities" value="{{ city }}">{{
+          city
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Street*: </mat-label>
+      <input matInput formControlName="street" />
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="register()"
+      type="submit"
+    >
+      Register
+    </button>
+  </div>
+</form>
+
+{{ form.value | json }}
