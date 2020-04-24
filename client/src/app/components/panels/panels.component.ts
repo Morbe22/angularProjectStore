@@ -43,7 +43,6 @@ export class PanelsComponent implements OnInit {
 
   public Toshop() {
     this.router.navigateByUrl("/shop");
-    // this.hasCart();
     if (localStorage.cartStatus == "Done") {
       this.hasCart();
       localStorage.removeItem("currentPrice");
@@ -52,7 +51,6 @@ export class PanelsComponent implements OnInit {
     if (localStorage.cartStatus == "starting") {
       this.hasCart();
     }
-    // this._shopS.createCart() if statuscart=done
   }
 
   public hasCart() {

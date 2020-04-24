@@ -57,7 +57,7 @@
     >We're sorry , this date is fully booked, try another one.</span
   >
   <mat-form-field>
-    <mat-label>Choose a date of shipping</mat-label>
+    <mat-label>Choose a date of shipping *</mat-label>
     <input
       matInput
       [matDatepicker]="myPicker"
@@ -71,9 +71,21 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Enter last 4 numbers in Credit Card *:</mat-label>
-    <input matInput #input maxlength="4" formControlName="creditCard" />
-    <mat-hint align="end">{{ input.value?.length || 0 }}/4</mat-hint>
+    <input matInput #input formControlName="creditCard" pattern="^[0-9]{4}$" />
   </mat-form-field>
+  <div class="errorMessage">
+    <span *ngIf="form.controls.creditCard.errors?.pattern">
+      credit Card info must be 4 numeric characters .</span
+    >
+    <span
+      *ngIf="
+        form.controls.street_shipping.errors?.required &&
+        (form.controls.street_shipping.touched ||
+          form.controls.street_shipping.dirty)
+      "
+      >All inputs must be filled.</span
+    >
+  </div>
 
   <button mat-raised-button color="primary" type="submit" (click)="order()">
     Order

@@ -148,7 +148,7 @@ export class OrderFormComponent implements OnInit {
       city_shipping: ["", Validators.required],
       street_shipping: ["", Validators.required],
       date_order_toShipping: ["", Validators.required],
-      creditCard: ["", Validators.required],
+      creditCard: ["", Validators.required, Validators.pattern],
     });
   }
 }

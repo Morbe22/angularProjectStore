@@ -31,7 +31,7 @@ export class ShopComponent implements OnInit {
   public errorMessageAdd = false;
   public productId: number;
   public status = false;
-  // public isAdmin = false;
+  public is_user_Admin = false;
   public Editform: FormGroup;
   public edit = false;
   public chosenProd: any;
@@ -53,49 +53,34 @@ export class ShopComponent implements OnInit {
       (res) => {
         this.user_id = res.ID;
         this.cartStatus();
+        if (res.isAdmin == 0) {
+          localStorage.setItem("userStatus", "Not_Admin");
+        } else {
+          localStorage.setItem("userStatus", "Admin");
+        }
+        if (localStorage.userStatus == "Not_Admin") {
+          this.is_user_Admin = false;
+        }
+        if (localStorage.userStatus == "Admin") {
+          this.is_user_Admin = true;
+        }
         console.log(res);
       },
       (err) => console.log(err)
     );
   }
-  // public isUserAdmin() {
-  //   this._userS.getUser().subscribe(
-  //     (res) => {
-  //       // console.log(res);
-  //       // this.user_id = res.ID;
-  //       if (res.isAdmin == 1) {
-  //         this.isAdmin = true;
-  //       } else {
-  //         this.finalPrice();
-  //         this.getCartItems();
-  //         this.isAdmin = false;
-  //       }
-  //       // console.log(res);
-  //     },
-  //     (err) => console.log(err)
-  //   );
-  // }
 
   public clickProd(p) {
-    this._userS.getUser().subscribe(
-      (res) => {
-        if (res.isAdmin == 1) {
-          this.edit = true;
-          // this.getEditForm();
-          this.chosenProd = p;
-
-          this.Editform.patchValue({
-            p_name: this.chosenProd.p_name,
-            catagory_id: this.chosenProd.catagory_id,
-            price: this.chosenProd.price,
-            picture: this.chosenProd.picture,
-          });
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    if (localStorage.userStatus == "Admin") {
+      this.edit = true;
+      this.chosenProd = p;
+      this.Editform.patchValue({
+        p_name: this.chosenProd.p_name,
+        catagory_id: this.chosenProd.catagory_id,
+        price: this.chosenProd.price,
+        picture: this.chosenProd.picture,
+      });
+    }
   }
 
   public editProdForm() {
@@ -399,7 +384,6 @@ export class ShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.user();
-    // this.isUserAdmin();
     this.getCat();
     this.getProd();
     this.editProdForm();

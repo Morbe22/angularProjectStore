@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
   public userDetails() {
     this._userS.getUser().subscribe(
       (res) => {
+        console.log(res);
+
         this.name = res.f_name;
         localStorage.setItem("user_name", this.name);
         console.log(res);

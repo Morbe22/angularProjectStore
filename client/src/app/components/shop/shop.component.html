@@ -1,12 +1,5 @@
 <div class="fbox">
-  <button
-    type="button"
-    mat-flat-button
-    color="primary"
-    (click)="toggle()"
-    class="toggleBtn"
-    color="primary"
-  >
+  <button type="button" mat-flat-button (click)="toggle()" class="toggleBtn">
     <span>My cart</span>
     <img
       src="assets/imgs/shopping-cart.svg"
@@ -14,8 +7,8 @@
       class="cartImg"
     />
   </button>
-  <div class="search_box">
-    <mat-form-field appearance="fill">
+  <div class="search_box" *ngIf="!is_user_Admin">
+    <mat-form-field>
       <mat-label class="labelS">search product </mat-label>
       <input matInput id="search" />
     </mat-form-field>
@@ -31,12 +24,18 @@
 
 <div class="wrapper">
   <aside *ngIf="isOpen">
-    <div class="clearImg" (click)="delAllP()">
-      <span>clear All</span>
-      <img src="assets/imgs/clear.png" alt="clear icon" />
+    <div class="orderbtn" *ngIf="!is_user_Admin">
+      <h2>TOTAL : {{ final_Price }} $</h2>
+      <div>
+        <button mat-stroked-button (click)="delAllP()">
+          clear All
+        </button>
+        <button mat-stroked-button (click)="order()">Order</button>
+      </div>
     </div>
     <div *ngIf="edit">
-      edit:
+      <p class="editTitle">edit :</p>
+
       <form [formGroup]="Editform" class="editForm">
         <mat-form-field appearance="fill">
           <mat-label>product name :</mat-label>
@@ -61,17 +60,14 @@
         </mat-form-field>
 
         <img src="http://localhost:1035/{{ chosenProd.picture }}" />
-        <input type="file" (change)="onFileChanged($event)" />
-        <button
-          type="submit"
-          color="primary"
-          mat-raised-button
-          (click)="onUpload()"
-        >
-          Upload new Pic!
-        </button>
+        <div>
+          <input type="file" (change)="onFileChanged($event)" />
+          <button type="submit" mat-raised-button (click)="onUpload()">
+            Upload new Pic!
+          </button>
+        </div>
 
-        <button color="primary" mat-raised-button (click)="editProd()">
+        <button mat-raised-button (click)="editProd()">
           Save
         </button>
 
@@ -79,7 +75,7 @@
       </form>
     </div>
 
-    <div class="items_box">
+    <div class="items_box" *ngIf="!is_user_Admin">
       <div
         *ngFor="let item of cartItems"
         class="items"
@@ -91,29 +87,23 @@
           class="closeBtn"
           (click)="delOneP(item)"
         />
-        <h3>"{{ item.p_name }}"</h3>
+        <p>"{{ item.p_name }}"</p>
         <p>amount : {{ item.amount }}</p>
         <p>total price of product : {{ item.total_price }} $</p>
         <img src="http://localhost:1035/{{ item.picture }}" class="itemImg" />
       </div>
     </div>
-
-    <div class="orderbtn">
-      <h2>TOTAL : {{ final_Price }} $</h2>
-      <button mat-stroked-button (click)="order()">Order</button>
-    </div>
   </aside>
 
   <main>
-    <div class="filter">
+    <div class="filter" *ngIf="!is_user_Admin">
       <button mat-flat-button (click)="reset()" class="resetBtn">
-        <img src="assets/imgs/reset.png" class="resetImg" alt="reset" />
+        reset filter
       </button>
       <div (click)="filter($event)">
         <div *ngFor="let c of catArr1">
           <mat-checkbox
             class="categories"
-            color="primary"
             labelPosition="before"
             value="{{ c.id }}"
             name="categories"
@@ -125,7 +115,6 @@
         <div *ngFor="let c of catArr2">
           <mat-checkbox
             class="categories"
-            color="primary"
             labelPosition="before"
             value="{{ c.id }}"
             name="categories"
@@ -136,7 +125,6 @@
       <div (click)="filter($event)">
         <div *ngFor="let c of catArr3">
           <mat-checkbox
-            color="primary"
             class="categories"
             labelPosition="before"
             value="{{ c.id }}"
@@ -165,7 +153,7 @@
             <input type="number" value="1" id="{{ p.id }}" />
           </div>
         </mat-card-actions>
-        <button (click)="add($event, p)" color="primary" mat-button>
+        <button (click)="add($event, p)" mat-button>
           ADD TO CART
         </button>
         <div *ngIf="p.id == [productId]">
@@ -176,7 +164,7 @@
         </div>
       </mat-card>
     </div>
-    <button class="addProductBtn" (click)="AddPopUp()">
+    <button class="addProductBtn" (click)="AddPopUp()" *ngIf="is_user_Admin">
       +
     </button>
   </main>

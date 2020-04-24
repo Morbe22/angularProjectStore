@@ -5,16 +5,14 @@
 }
 .fbox {
   display: flex;
-  background-color: #3349b5f1;
-  color: #fff;
-}
-.labelS {
-  color: #fff !important;
 }
 .search_box {
   display: flex;
   align-items: center;
 }
+/* .labelS {
+  color: #fff !important;
+} */
 .search_box > mat-form-field {
   margin-top: 15px;
   padding: 0;
@@ -22,7 +20,7 @@
 }
 
 .Simg {
-  width: 18%;
+  width: 15%;
   padding: 5px;
   cursor: pointer;
 }
@@ -31,17 +29,8 @@ aside {
   width: 25%;
   resize: horizontal;
   overflow: auto;
-  background-color: #3349b5f1;
-  color: #fff;
+  border-right-style: double;
   position: relative;
-}
-
-.clearImg {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-evenly;
-  cursor: pointer;
 }
 
 .clearImg > img {
@@ -60,14 +49,16 @@ aside > div > h3 {
 }
 
 .orderbtn {
-  position: absolute;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid;
+  /* position: absolute;
   top: 30px;
   margin-bottom: 15px;
   margin-top: 7px;
-  /* padding: 10px; */
   display: flex;
-  align-items: center;
-  background-color: #3c51b9;
+  align-items: center; */
+  /* background-color: #3c51b9; */
 }
 
 main {
@@ -95,10 +86,13 @@ main {
 }
 
 .filter {
-  border: 25px solid rgba(55, 35, 35, 0.85);
+  border: 25px solid transparent;
+  border-image: url(https://i.pinimg.com/originals/fd/05/f4/fd05f4f982a70dec7d61caecc0fd8848.jpg)
+    30 round;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 85%;
+  margin: auto;
 }
 
 .filter > div {
@@ -109,29 +103,26 @@ main {
 }
 
 .resetBtn {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  background-color: rgba(213, 231, 255, 0.103);
-  position: relative;
-  margin-right: 20px;
+  padding: 20px;
+  font-variant: small-caps;
+  font-size: larger;
 }
 .resetBtn:hover {
-  background-color: rgba(213, 231, 255, 0.301);
+  background-color: rgb(130, 110, 145);
+  color: #fff;
 }
 
-.resetImg {
-  position: inherit;
-  width: 100%;
+.editTitle {
+  font-weight: bolder;
+  font-size: x-large;
 }
 
 .toggleBtn {
-  width: 20%;
+  width: 15%;
   padding: 10px;
   font-variant: small-caps;
-  font-weight: 600;
+  font-weight: lighter;
   font-size: x-large;
-  font-family: sans-serif;
 }
 
 .cartImg {
@@ -145,14 +136,15 @@ main {
 }
 
 .editForm {
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   flex-direction: column;
   color: #000;
 }
 .editForm > * {
   padding: 10px;
-  border: 0.5px solid;
+  /* border: 0.5px solid; */
+  font-size: larger;
 }
 
 .editForm > img {
@@ -176,7 +168,8 @@ main {
   padding: 15px;
   width: 90%;
   margin: auto;
-  /* border: 3px solid purple; */
+  border-bottom-style: double;
+  font-size: larger;
 }
 
 .itemImg {
@@ -202,9 +195,9 @@ main {
   top: 10%;
   left: 50%;
   transform: translate(-50%);
-  color: #3349b5f1;
   background-color: #fff;
   border: 8px solid #000;
+  z-index: 99999;
 }
 
 .popUpOrder > div {
@@ -251,8 +244,8 @@ main {
 .search_box_order {
   display: flex;
   align-items: center;
-  background-color: #3349b5f1;
-  color: #fff;
+  /* background-color: #3349b5f1; */
+  /* color: #fff; */
 }
 
 .Simg_order {
@@ -277,7 +270,6 @@ main {
   border: none;
   font-size: xx-large;
   font-weight: bolder;
-  background-color: #3349b5f1;
   margin-bottom: 20px;
   color: #fff;
   cursor: pointer;

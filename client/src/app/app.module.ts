@@ -5,9 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PanelsComponent } from "./components/panels/panels.component";
-// import { ALoginComponent } from "./components/a-login/a-login.component";
-// import { BAboutComponent } from "./components/b-about/b-about.component";
-// import { CNotificationsComponent } from "./components/c-notifications/c-notifications.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -32,9 +29,6 @@ import { AddProdFormComponent } from "./components/add-prod-form/add-prod-form.c
   declarations: [
     AppComponent,
     PanelsComponent,
-    // ALoginComponent,
-    // BAboutComponent,
-    // CNotificationsComponent,
     LoginComponent,
     RegisterComponent,
     ShopComponent,
